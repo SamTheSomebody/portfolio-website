@@ -1,46 +1,54 @@
 <script lang="ts">
-	import AnimatedBackground from '$lib/components/pixi/AnimatedBackground.svelte';
-	import Navigation from '$lib/components/ui/Navigation.svelte';
-	import Hero from '$lib/components/ui/Hero.svelte';
-	import About from '$lib/components/ui/About.svelte';
-	import Projects from '$lib/components/ui/Projects.svelte';
-	import Skills from '$lib/components/ui/Skills.svelte';
-	import Contact from '$lib/components/ui/Contact.svelte';
-	import Footer from '$lib/components/ui/Footer.svelte';
+  import { onMount, onDestroy } from "svelte";
+  import { GameManager } from "$lib/components/pixi/GameManager";
+  import InputDebugger from "$lib/components/ui/InputDebugger.svelte";
+  import TitlePanel from "$lib/components/svelte/TitlePanel.svelte";
+
+  let gameManager: GameManager;
+  let inputManager: any;
+  let gameContainer: HTMLDivElement;
+
+  onMount(() => {
+    if (gameContainer) {
+      gameManager = new GameManager(gameContainer);
+      inputManager = gameManager.inputManager;
+    }
+  });
+
+  onDestroy(() => {
+    if (gameManager) {
+      gameManager.destroy();
+    }
+  });
 </script>
 
 <svelte:head>
-	<title>Sam Muller - Full-Stack Developer</title>
-	<meta name="description" content="Full-stack developer with background in game development, specializing in React, Svelte, FastAPI, and interactive user experiences" />
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <title>Sam Muller</title>
 </svelte:head>
 
-<main>
-	<AnimatedBackground />
-	
-	<Navigation />
-	
-	<section class="hero">
-		<Hero />
-	</section>
-	
-	<section class="section" id="about">
-		<About />
-	</section>
-	
-	<section class="section" id="projects">
-		<Projects />
-	</section>
-	
-	<section class="section" id="skills">
-		<Skills />
-	</section>
-	
-	<section class="section" id="contact">
-		<Contact />
-	</section>
-	
-	<Footer />
-</main> 
+<div class="body">
+  <TitlePanel />
+  <div bind:this={gameContainer} class="game" />
+  {#if inputManager}
+    <InputDebugger {inputManager} />
+  {/if}
+</div>
+
+<style>
+  .body {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  .game {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    z-index: 1;
+  }
+</style>

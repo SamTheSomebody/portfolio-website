@@ -1,0 +1,60 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+html, body {
+	height: 100vh;
+	width: 100vw;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+}
+
+#svelte {
+	height: 100vh;
+	width: 100vw;
+	overflow: hidden;
+}
+
+@font-face {
+  font-family: 'Mountain King';
+  src: url('/fonts/MountainKingRegular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+html, body {
+	height: 100vh;
+	width: 100vw;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+}
+
+#svelte {
+	height: 100vh;
+	width: 100vw;
+	overflow: hidden;
+}
+
+@font-face {
+  font-family: 'Mountain King';
+  src: url('/fonts/MountainKingRegular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.jetbrains-mono {
+  font-family: "JetBrains Mono", monospace;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}

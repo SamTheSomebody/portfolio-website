@@ -1,0 +1,87 @@
+{"frames": {
+
+"Tree1-0.png":
+{
+	"frame": {"x":1,"y":1,"w":119,"h":190},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":119,"h":190},
+	"sourceSize": {"w":119,"h":190},
+	"anchor": {"x":0.504202,"y":0.957895}
+},
+"Tree1-1.png":
+{
+	"frame": {"x":1,"y":193,"w":119,"h":190},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":119,"h":190},
+	"sourceSize": {"w":119,"h":190},
+	"anchor": {"x":0.495798,"y":0.957895}
+},
+"Tree1-2.png":
+{
+	"frame": {"x":122,"y":1,"w":119,"h":190},
+	"rotated": true,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":119,"h":190},
+	"sourceSize": {"w":119,"h":190},
+	"anchor": {"x":0.487395,"y":0.957895}
+},
+"Tree1-3.png":
+{
+	"frame": {"x":314,"y":1,"w":119,"h":190},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":119,"h":190},
+	"sourceSize": {"w":119,"h":190},
+	"anchor": {"x":0.487395,"y":0.957895}
+},
+"Tree1-4.png":
+{
+	"frame": {"x":122,"y":122,"w":119,"h":190},
+	"rotated": true,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":119,"h":190},
+	"sourceSize": {"w":119,"h":190},
+	"anchor": {"x":0.495798,"y":0.957895}
+},
+"Tree1-5.png":
+{
+	"frame": {"x":314,"y":193,"w":119,"h":190},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":119,"h":190},
+	"sourceSize": {"w":119,"h":190},
+	"anchor": {"x":0.495798,"y":0.957895}
+},
+"Tree1-6.png":
+{
+	"frame": {"x":122,"y":243,"w":119,"h":190},
+	"rotated": true,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":119,"h":190},
+	"sourceSize": {"w":119,"h":190},
+	"anchor": {"x":0.504202,"y":0.957895}
+},
+"Tree1-7.png":
+{
+	"frame": {"x":122,"y":364,"w":119,"h":190},
+	"rotated": true,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":119,"h":190},
+	"sourceSize": {"w":119,"h":190},
+	"anchor": {"x":0.504202,"y":0.957895}
+}},
+"animations": {
+	"Tree1": ["Tree1-0.png","Tree1-1.png","Tree1-2.png","Tree1-3.png","Tree1-4.png","Tree1-5.png","Tree1-6.png","Tree1-7.png"]
+},
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.1",
+	"image": "Tree1.png",
+	"format": "RGBA4444",
+	"size": {"w":484,"h":484},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:dd213ecf89abb5b6e45736a770adee0a:ab371bc234e98092312ecae9d46a0921:aeeadbc9510caa23a22ef2349ccfdd2a$"
+}
+}
