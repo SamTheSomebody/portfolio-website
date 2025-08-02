@@ -81,7 +81,8 @@ export class AttackingState extends BasePlayerState {
   }
 
   onEnter(): void {
-    this.setAnimation("Attack1");
+    const isFirst = Math.random() < 0.5;
+    this.setAnimation(isFirst ? "Attack1" : "Attack2");
     this.sprite.loop = false;
     this.animationComplete = false;
   }

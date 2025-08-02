@@ -75,6 +75,7 @@ export class Player {
   }
 
   public handleAttack() {
+    if (this.currentState instanceof AttackingState) return;
     this.setState(new AttackingState(this));
   }
 
