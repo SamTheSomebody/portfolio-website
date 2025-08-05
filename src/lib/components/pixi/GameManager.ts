@@ -8,6 +8,7 @@ export class GameManager {
   public inputManager: InputManager;
   private player: Player;
   private ticker: Ticker;
+
   constructor(container: HTMLDivElement) {
     this.inputManager = new InputManager();
     this.app = new App();

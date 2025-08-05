@@ -1,19 +1,16 @@
-import { AnimatedSprite } from "pixi.js";
 import { Player } from "./Player";
 
-export interface IPlayerState {
+export interface IState {
   update(deltaTime: number): void;
   onEnter(): void;
   onExit(): void;
 }
 
-export abstract class BasePlayerState implements IPlayerState {
+export abstract class BaseState implements IState {
   protected player: Player;
-  protected sprite: AnimatedSprite;
 
   constructor(player: Player) {
     this.player = player;
-    this.sprite = player.sprite;
   }
 
   abstract update(deltaTime: number): void;
@@ -21,42 +18,33 @@ export abstract class BasePlayerState implements IPlayerState {
   abstract onExit(): void;
 
   protected setAnimation(animationName: string): void {
-    this.player.setAnimation(animationName);
-  }
-
-  protected move(deltaTime: number) {
-    const speed = 3 * deltaTime;
-    const direction = this.player.getMovementDirection();
-    this.sprite.x += direction.x * speed;
-    this.sprite.y += direction.y * speed;
+    this.player.animation.setAnimation(animationName);
   }
 }
 
-export class IdleState extends BasePlayerState {
-  update(deltaTime: number): void {
-    if (!this.sprite) return;
-  }
+export class IdleState extends BaseState {
+  update(deltaTime: number): void {}
 
   onEnter(): void {
     this.setAnimation("Idle");
+    this.player.canMove = true;
   }
 
   onExit(): void {}
 }
 
-export class MoveState extends BasePlayerState {
-  update(deltaTime: number): void {
-    this.move(deltaTime);
-  }
+export class MoveState extends BaseState {
+  update(deltaTime: number): void {}
 
   onEnter(): void {
     this.setAnimation("Run");
+    this.player.canMove = true;
   }
 
   onExit(): void {}
 }
 
-export class AttackingState extends BasePlayerState {
+export class AttackingState extends BaseState {
   private animationComplete = false;
   private lastFrameStartTime = 0;
 
@@ -65,34 +53,38 @@ export class AttackingState extends BasePlayerState {
   }
 
   update(deltaTime: number): void {
+    const sprite = this.player.animation.getSprite();
     if (
-      this.sprite &&
-      this.sprite.currentFrame >= this.sprite.textures.length - 1
+      sprite &&
+      this.player.animation.getCurrentFrame() >=
+        this.player.animation.getTotalFrames() - 1
     ) {
       if (!this.animationComplete) {
         this.animationComplete = true;
         this.lastFrameStartTime = Date.now();
       }
-      const frameDuration = 1500 / (this.sprite.animationSpeed * 60);
+
+      const frameDuration = 1500 / (sprite.animationSpeed * 60);
       if (Date.now() - this.lastFrameStartTime >= frameDuration) {
-        this.player.onAttackComplete();
+        this.player.stateMachine.onAttackComplete();
       }
     }
   }
 
   onEnter(): void {
-    const isFirst = Math.random() < 0.5;
-    this.setAnimation(isFirst ? "Attack1" : "Attack2");
-    this.sprite.loop = false;
+    const attackType = Math.random() < 0.5 ? "Attack1" : "Attack2";
+    this.setAnimation(attackType);
+    this.player.animation.setLoop(false);
     this.animationComplete = false;
+    this.player.canMove = false;
   }
 
   onExit(): void {
-    this.sprite.loop = true;
+    this.player.animation.setLoop(true);
   }
 }
 
-export class BlockState extends BasePlayerState {
+export class BlockState extends BaseState {
   constructor(player: Player) {
     super(player);
   }
@@ -101,6 +93,7 @@ export class BlockState extends BasePlayerState {
 
   onEnter(): void {
     this.setAnimation("Guard");
+    this.player.canMove = false;
   }
 
   onExit(): void {}
