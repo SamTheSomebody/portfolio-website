@@ -1,10 +1,9 @@
 <script lang="ts">
   import { onMount, onDestroy } from 'svelte';
   import { GameManager } from '$lib/components/pixi/GameManager';
-  import InputDebugger from '$lib/components/svelte/debug/InputDebugger.svelte';
-  import CollisionDebugger from '$lib/components/svelte/debug/CollisionDebugger.svelte';
+  import InputDebugger from '$lib/components/svelte/debug/EventDebugger.svelte';
   import TitlePanel from '$lib/components/svelte/TitlePanel.svelte';
-  import KeyboardInput from '$lib/components/svelte/KeyboardInput.svelte';
+  import KeyboardInput from '$lib/components/svelte/keyVisualization/KeyboardInput.svelte';
   import UnderConstruction from '$lib/components/svelte/UnderConstruction.svelte';
   import { browser } from '$app/environment';
 
@@ -51,9 +50,6 @@
   {/if}
   {#if inputManager}
     <InputDebugger {inputManager} />
-  {/if}
-  {#if gameManager}
-    <CollisionDebugger {gameManager} />
   {/if}
 </div>
 

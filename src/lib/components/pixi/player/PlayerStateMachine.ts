@@ -1,17 +1,13 @@
-import type { Player } from "./Player";
-import {
-  IdleState,
-  MoveState,
-  AttackingState,
-  BlockState,
-} from "./PlayerState";
-import type { IState } from "./PlayerState";
+import type { Player } from './Player';
+import { IdleState, MoveState, AttackingState, BlockState } from './PlayerState';
+import type { IState } from './PlayerState';
 
 export class PlayerStateMachine {
   private currentState!: IState;
   private player: Player;
   private movementDirection: { x: number; y: number } = { x: 0, y: 0 };
   private onPositionChange?: (x: number, y: number) => void;
+  private wantsToBlock = false;
 
   constructor(player: Player) {
     this.player = player;
@@ -41,12 +37,7 @@ export class PlayerStateMachine {
   public handleMovementInput(direction: { x: number; y: number }) {
     this.movementDirection = direction;
     const velocity = Math.abs(direction.x) + Math.abs(direction.y);
-    if (
-      !(
-        this.currentState instanceof IdleState ||
-        this.currentState instanceof MoveState
-      )
-    ) {
+    if (!(this.currentState instanceof IdleState || this.currentState instanceof MoveState)) {
       return;
     }
     if (velocity > 0) {
@@ -64,18 +55,26 @@ export class PlayerStateMachine {
   }
 
   public handleBlockStart() {
+    this.wantsToBlock = true;
     if (this.currentState instanceof AttackingState) return;
     this.setState(new BlockState(this.player));
   }
 
   public handleBlockEnd() {
-    this.setState(new IdleState(this.player));
-    this.handleMovementInput(this.movementDirection);
+    this.wantsToBlock = false;
+    if (!(this.currentState instanceof AttackingState)) {
+      this.setState(new IdleState(this.player));
+      this.handleMovementInput(this.movementDirection);
+    }
   }
 
   public onAttackComplete() {
-    this.setState(new IdleState(this.player));
-    this.handleMovementInput(this.movementDirection);
+    if (this.wantsToBlock) {
+      this.setState(new BlockState(this.player));
+    } else {
+      this.setState(new IdleState(this.player));
+      this.handleMovementInput(this.movementDirection);
+    }
   }
 
   public getPosition(): { x: number; y: number } {

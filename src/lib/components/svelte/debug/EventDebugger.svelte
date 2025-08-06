@@ -1,12 +1,12 @@
 <script lang="ts">
-  import { onMount, onDestroy } from "svelte";
-  import type { InputManager } from "../../pixi/InputManager";
+  import { onMount, onDestroy } from 'svelte';
+  import type { InputManager } from '../../pixi/InputManager';
 
   export let inputManager: InputManager;
 
   let events: Array<{ type: string; data?: any; timestamp: number }> = [];
   let maxEvents = 20;
-  let isVisible = true;
+  let isVisible = false;
 
   function addEvent(type: string, data?: any) {
     events = [
@@ -27,28 +27,28 @@
     const events = inputManager.events;
 
     inputManager.setEvents({
-      onMovementInput: (direction) => {
-        addEvent("Movement Input", direction);
+      onMovementInput: direction => {
+        addEvent('Movement Input', direction);
         events.onMovementInput?.(direction);
       },
       onAttack: () => {
-        addEvent("Attack");
+        addEvent('Attack');
         events.onAttack?.();
       },
       onBlockStart: () => {
-        addEvent("Block Start");
+        addEvent('Block Start');
         events.onBlockStart?.();
       },
       onBlockEnd: () => {
-        addEvent("Block End");
+        addEvent('Block End');
         events.onBlockEnd?.();
       },
       onSubmit: () => {
-        addEvent("Submit");
+        addEvent('Submit');
         events.onSubmit?.();
       },
       onCancel: () => {
-        addEvent("Cancel");
+        addEvent('Cancel');
         events.onCancel?.();
       },
     });
@@ -56,7 +56,7 @@
 </script>
 
 <button class="toggle-button" on:click={toggleVisibility}>
-  {isVisible ? "Hide" : "Show"} Debug
+  {isVisible ? 'Hide' : 'Show'} Debug
 </button>
 
 {#if isVisible}
@@ -67,9 +67,7 @@
         <div class="event">
           <span class="event-type">{event.type}</span>
           <span class="event-data">({JSON.stringify(event.data)})</span>
-          <span class="event-time"
-            >{new Date(event.timestamp).toLocaleTimeString()}</span
-          >
+          <span class="event-time">{new Date(event.timestamp).toLocaleTimeString()}</span>
         </div>
       {/each}
     </div>

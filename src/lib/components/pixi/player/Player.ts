@@ -1,7 +1,8 @@
 import { App } from '../App';
 import { PlayerAnimation } from './PlayerAnimation';
 import { PlayerStateMachine } from './PlayerStateMachine';
-import { PlayerMovement, type Vector2 } from './PlayerMovement';
+import { PlayerMovement } from './PlayerMovement';
+import type { Vector2 } from '../types/position';
 
 export class Player {
   animation: PlayerAnimation;
