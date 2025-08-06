@@ -29,7 +29,7 @@ export class Scene {
         if (!tile) {
           continue;
         }
-        const tileSprite = new Sprite(sheet.textures[tile.type]);
+        const tileSprite = new Sprite(sheet.textures[tile.type + '.png']);
         tileSprite.anchor.set(0.5);
         tileSprite.x = x * 64;
         tileSprite.y = y * 64;
@@ -37,7 +37,7 @@ export class Scene {
         tileSprite.height = 64;
         this.container.addChild(tileSprite);
         if (tile.wall) {
-          const wallSprite = new Sprite(sheet.textures[tile.wall]);
+          const wallSprite = new Sprite(sheet.textures[tile.wall + '.png']);
           wallSprite.anchor.set(0.5);
           wallSprite.x = x * 64;
           wallSprite.y = y * 64;
@@ -47,6 +47,7 @@ export class Scene {
         }
       }
     }
+
     const x = this.app.app.screen.width / 2 - this.container.width / 1.5;
     const y = this.app.app.screen.height / 1.8 - this.container.height / 1.5;
     this.container.position.set(x, y);

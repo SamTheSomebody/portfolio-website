@@ -1,6 +1,6 @@
 import { AnimatedSprite, Assets, Sprite, Texture } from 'pixi.js';
 import { App } from '../App';
-import type { Vector2 } from './PlayerMovement';
+import type { Vector2 } from '../types/position';
 
 export class PlayerAnimation {
   private sprite!: AnimatedSprite;
