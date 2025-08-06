@@ -39,6 +39,6 @@ echo 🔄 Switching back to main branch...
 git checkout main
 
 echo ✅ Deployment triggered successfully!
-echo 🌐 Your site will be available at: https://samthesomebody.github.io/portfolio-website/
+echo 🌐 Your site will be available at: https://gamedevsam.com/
 echo 📊 Check deployment status at: https://github.com/samthesomebody/portfolio-website/actions
 pause 
