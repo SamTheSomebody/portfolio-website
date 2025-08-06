@@ -33,6 +33,18 @@ git push origin main
 
 When ready to deploy, use the automated script:
 
+**On Windows:**
+
+```cmd
+# Make sure you're on main branch
+git checkout main
+
+# Run the deployment script
+scripts\deploy.bat
+```
+
+**On macOS/Linux:**
+
 ```bash
 # Make sure you're on main branch
 git checkout main
