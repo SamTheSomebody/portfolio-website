@@ -13,8 +13,8 @@ function getBasePath(): string {
     return '';
   }
 
-  // In production, use the base path from environment or default
-  return import.meta.env.VITE_BASE_PATH || '/portfolio-website';
+  // In production, use the base path from environment or default to empty string for custom domain
+  return import.meta.env.VITE_BASE_PATH || '';
 }
 
 // Get the correct asset path

@@ -15,7 +15,7 @@
     <div class="construction-icon">🚧</div>
     <div class="construction-text">
       <h3>Site Under Construction</h3>
-      <p>This portfolio is currently being built. Check back soon for updates!</p>
+      <p>Check back soon for updates!</p>
     </div>
     <div class="construction-icon">🚧</div>
   </div>
