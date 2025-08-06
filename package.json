@@ -4,10 +4,10 @@
   "private": true,
   "scripts": {
     "build": "vite build",
-    "build:gh-pages": "cross-env BASE_PATH=/portfolio-website npm run build",
+    "build:gh-pages": "cross-env BASE_PATH= npm run build",
     "dev": "vite dev",
     "preview": "vite preview",
-    "preview:gh-pages": "cross-env BASE_PATH=/portfolio-website vite preview --base /portfolio-website",
+    "preview:gh-pages": "cross-env BASE_PATH= vite preview",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
     "lint": "prettier --plugin-search-dir . --check . && eslint .",

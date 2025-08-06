@@ -79,7 +79,7 @@ You can also trigger a deployment manually:
 
 ## URLs
 
-- **Live Site**: https://samthesomebody.github.io/portfolio-website/
+- **Live Site**: http://gamedevsam.com/
 - **Preview Build**: Run `npm run build:gh-pages && npm run preview` locally
 
 ## Configuration

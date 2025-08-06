@@ -33,7 +33,7 @@ jobs:
       - name: Build
         run: npm run build:gh-pages
         env:
-          BASE_PATH: /portfolio-website
+          BASE_PATH: ''
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
