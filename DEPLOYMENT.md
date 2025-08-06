@@ -64,7 +64,9 @@ Always test your build locally before deploying:
 
 ```bash
 npm run build:gh-pages
-npm run preview
+npm run preview:gh-pages
 ```
 
 This simulates the exact build that will be deployed to GitHub Pages.
+
+**Note**: The build command now uses `cross-env` for Windows compatibility.

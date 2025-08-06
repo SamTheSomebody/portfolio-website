@@ -6,6 +6,7 @@
   import TitlePanel from '$lib/components/svelte/TitlePanel.svelte';
   import KeyboardInput from '$lib/components/svelte/KeyboardInput.svelte';
   import UnderConstruction from '$lib/components/svelte/UnderConstruction.svelte';
+  import { browser } from '$app/environment';
 
   let gameManager: GameManager;
   let inputManager: any;
@@ -33,7 +34,9 @@
   <TitlePanel />
   <UnderConstruction />
   <div bind:this={gameContainer} class="game" />
-  <KeyboardInput />
+  {#if browser}
+    <KeyboardInput />
+  {/if}
   {#if inputManager}
     <InputDebugger {inputManager} />
   {/if}

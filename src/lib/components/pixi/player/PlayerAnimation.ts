@@ -1,6 +1,7 @@
 import { AnimatedSprite, Assets, Sprite, Texture } from 'pixi.js';
 import { App } from '../App';
 import type { Vector2 } from '../types/position';
+import { getAssetPath } from '../../../utils/assetPaths';
 
 export class PlayerAnimation {
   private sprite!: AnimatedSprite;
@@ -13,7 +14,7 @@ export class PlayerAnimation {
   }
 
   async init() {
-    const sheet = await Assets.load('/images/sprites/Warrior.json');
+    const sheet = await Assets.load(getAssetPath('/images/sprites/Warrior.json'));
     const animationTypes = ['Idle', 'Run', 'Attack1', 'Attack2', 'Guard'];
     animationTypes.forEach(type => {
       this.animations[type] = Object.keys(sheet.data.frames)
