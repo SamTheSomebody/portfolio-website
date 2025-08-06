@@ -1,11 +1,19 @@
 # Deployment Guide
 
-This project uses a two-branch deployment strategy for GitHub Pages.
+This project uses a two-branch deployment strategy with automated GitHub Actions for GitHub Pages.
 
 ## Branch Structure
 
 - **`main`** - Development branch for ongoing work
-- **`production`** - Live deployment branch that triggers GitHub Pages
+- **`production`** - Live deployment branch that triggers automated builds
+
+## Automated Deployment
+
+The project now uses GitHub Actions for automated builds and deployment. When you push to the `production` branch, it automatically:
+
+1. Builds your SvelteKit site
+2. Deploys it to GitHub Pages
+3. Provides deployment status and URLs
 
 ## Deployment Process
 
@@ -23,7 +31,17 @@ git push origin main
 
 ### 2. Deploy to Production
 
-When ready to deploy to GitHub Pages:
+When ready to deploy, use the automated script:
+
+```bash
+# Make sure you're on main branch
+git checkout main
+
+# Run the deployment script
+./scripts/deploy.sh
+```
+
+Or manually:
 
 ```bash
 # Switch to production branch
@@ -32,7 +50,7 @@ git checkout production
 # Merge latest changes from main
 git merge main
 
-# Push to trigger deployment
+# Push to trigger automated deployment
 git push origin production
 
 # Switch back to main for continued development
@@ -55,6 +73,7 @@ You can also trigger a deployment manually:
 ## Configuration
 
 - GitHub Pages is configured to deploy from the `production` branch only
+- Automated builds use GitHub Actions with Node.js 18
 - The workflow includes `workflow_dispatch` for manual triggers
 - Static adapter is configured for optimal GitHub Pages compatibility
 
@@ -69,4 +88,12 @@ npm run preview:gh-pages
 
 This simulates the exact build that will be deployed to GitHub Pages.
 
-**Note**: The build command now uses `cross-env` for Windows compatibility.
+## Benefits of Automated Deployment
+
+- ✅ No need to commit build files to repository
+- ✅ Consistent builds across environments
+- ✅ Automatic deployment on every push to production
+- ✅ Build logs and deployment status tracking
+- ✅ Clean repository without build artifacts
+
+**Note**: The build command uses `cross-env` for Windows compatibility.
