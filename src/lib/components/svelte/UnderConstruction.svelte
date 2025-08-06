@@ -90,11 +90,13 @@
 
   @media (max-width: 768px) {
     .construction-banner {
-      top: 80px;
+      bottom: 20px;
       left: 20px;
       right: 20px;
       transform: none;
       padding: 12px 16px;
+      max-width: 300px;
+      margin: 0 auto;
     }
 
     .construction-content {

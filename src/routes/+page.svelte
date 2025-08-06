@@ -12,6 +12,18 @@
   let inputManager: any;
   let gameContainer: HTMLDivElement;
 
+  function handleKeyboardKeydown(event: CustomEvent) {
+    if (inputManager) {
+      inputManager.handleSyntheticKeyDown(event.detail.key);
+    }
+  }
+
+  function handleKeyboardKeyup(event: CustomEvent) {
+    if (inputManager) {
+      inputManager.handleSyntheticKeyUp(event.detail.key);
+    }
+  }
+
   onMount(() => {
     if (gameContainer) {
       gameManager = new GameManager(gameContainer);
@@ -35,7 +47,7 @@
   <UnderConstruction />
   <div bind:this={gameContainer} class="game" />
   {#if browser}
-    <KeyboardInput />
+    <KeyboardInput on:keydown={handleKeyboardKeydown} on:keyup={handleKeyboardKeyup} />
   {/if}
   {#if inputManager}
     <InputDebugger {inputManager} />

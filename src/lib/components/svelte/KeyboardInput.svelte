@@ -1,5 +1,7 @@
 <script lang="ts">
-  import { onMount, onDestroy } from 'svelte';
+  import { onMount, onDestroy, createEventDispatcher } from 'svelte';
+
+  const dispatch = createEventDispatcher();
 
   interface KeyState {
     key: string;
@@ -25,6 +27,7 @@
     if (keyState && !keyState.pressed) {
       keyState.pressed = true;
       keys = keys;
+      dispatch('keydown', { key: keyState.key });
     }
   }
 
@@ -33,7 +36,51 @@
     if (keyState && keyState.pressed) {
       keyState.pressed = false;
       keys = keys;
+      dispatch('keyup', { key: keyState.key });
     }
+  }
+
+  function handleKeyPress(key: string) {
+    const keyState = keys.find(k => k.key === key);
+    if (keyState && !keyState.pressed) {
+      keyState.pressed = true;
+      keys = keys;
+      dispatch('keydown', { key: keyState.key });
+    }
+  }
+
+  function handleKeyRelease(key: string) {
+    const keyState = keys.find(k => k.key === key);
+    if (keyState && keyState.pressed) {
+      keyState.pressed = false;
+      keys = keys;
+      dispatch('keyup', { key: keyState.key });
+    }
+  }
+
+  function handleMouseDown(event: MouseEvent, key: string) {
+    event.preventDefault();
+    handleKeyPress(key);
+  }
+
+  function handleMouseUp(event: MouseEvent, key: string) {
+    event.preventDefault();
+    handleKeyRelease(key);
+  }
+
+  function handleMouseLeave(event: MouseEvent, key: string) {
+    event.preventDefault();
+    handleKeyRelease(key);
+  }
+
+  function handleTouchStart(event: TouchEvent, key: string) {
+    event.preventDefault();
+    handleKeyPress(key);
+  }
+
+  function handleTouchEnd(event: TouchEvent, key: string) {
+    event.preventDefault();
+    handleKeyRelease(key);
   }
 
   onMount(() => {
@@ -58,36 +105,92 @@
       <div class="movement-grid">
         <div class="key-row">
           <div class="key-pair">
-            <div class="key {keys.find(k => k.key === 'w')?.pressed ? 'pressed' : ''}">
+            <div
+              class="key {keys.find(k => k.key === 'w')?.pressed ? 'pressed' : ''}"
+              on:mousedown={e => handleMouseDown(e, 'w')}
+              on:mouseup={e => handleMouseUp(e, 'w')}
+              on:mouseleave={e => handleMouseLeave(e, 'w')}
+              on:touchstart={e => handleTouchStart(e, 'w')}
+              on:touchend={e => handleTouchEnd(e, 'w')}
+            >
               {keys.find(k => k.key === 'w')?.label}
             </div>
-            <div class="key {keys.find(k => k.key === 'ArrowUp')?.pressed ? 'pressed' : ''}">
+            <div
+              class="key {keys.find(k => k.key === 'ArrowUp')?.pressed ? 'pressed' : ''}"
+              on:mousedown={e => handleMouseDown(e, 'ArrowUp')}
+              on:mouseup={e => handleMouseUp(e, 'ArrowUp')}
+              on:mouseleave={e => handleMouseLeave(e, 'ArrowUp')}
+              on:touchstart={e => handleTouchStart(e, 'ArrowUp')}
+              on:touchend={e => handleTouchEnd(e, 'ArrowUp')}
+            >
               {keys.find(k => k.key === 'ArrowUp')?.label}
             </div>
           </div>
         </div>
         <div class="key-row">
           <div class="key-pair">
-            <div class="key {keys.find(k => k.key === 'a')?.pressed ? 'pressed' : ''}">
+            <div
+              class="key {keys.find(k => k.key === 'a')?.pressed ? 'pressed' : ''}"
+              on:mousedown={e => handleMouseDown(e, 'a')}
+              on:mouseup={e => handleMouseUp(e, 'a')}
+              on:mouseleave={e => handleMouseLeave(e, 'a')}
+              on:touchstart={e => handleTouchStart(e, 'a')}
+              on:touchend={e => handleTouchEnd(e, 'a')}
+            >
               {keys.find(k => k.key === 'a')?.label}
             </div>
-            <div class="key {keys.find(k => k.key === 'ArrowLeft')?.pressed ? 'pressed' : ''}">
+            <div
+              class="key {keys.find(k => k.key === 'ArrowLeft')?.pressed ? 'pressed' : ''}"
+              on:mousedown={e => handleMouseDown(e, 'ArrowLeft')}
+              on:mouseup={e => handleMouseUp(e, 'ArrowLeft')}
+              on:mouseleave={e => handleMouseLeave(e, 'ArrowLeft')}
+              on:touchstart={e => handleTouchStart(e, 'ArrowLeft')}
+              on:touchend={e => handleTouchEnd(e, 'ArrowLeft')}
+            >
               {keys.find(k => k.key === 'ArrowLeft')?.label}
             </div>
           </div>
           <div class="key-pair">
-            <div class="key {keys.find(k => k.key === 's')?.pressed ? 'pressed' : ''}">
+            <div
+              class="key {keys.find(k => k.key === 's')?.pressed ? 'pressed' : ''}"
+              on:mousedown={e => handleMouseDown(e, 's')}
+              on:mouseup={e => handleMouseUp(e, 's')}
+              on:mouseleave={e => handleMouseLeave(e, 's')}
+              on:touchstart={e => handleTouchStart(e, 's')}
+              on:touchend={e => handleTouchEnd(e, 's')}
+            >
               {keys.find(k => k.key === 's')?.label}
             </div>
-            <div class="key {keys.find(k => k.key === 'ArrowDown')?.pressed ? 'pressed' : ''}">
+            <div
+              class="key {keys.find(k => k.key === 'ArrowDown')?.pressed ? 'pressed' : ''}"
+              on:mousedown={e => handleMouseDown(e, 'ArrowDown')}
+              on:mouseup={e => handleMouseUp(e, 'ArrowDown')}
+              on:mouseleave={e => handleMouseLeave(e, 'ArrowDown')}
+              on:touchstart={e => handleTouchStart(e, 'ArrowDown')}
+              on:touchend={e => handleTouchEnd(e, 'ArrowDown')}
+            >
               {keys.find(k => k.key === 'ArrowDown')?.label}
             </div>
           </div>
           <div class="key-pair">
-            <div class="key {keys.find(k => k.key === 'd')?.pressed ? 'pressed' : ''}">
+            <div
+              class="key {keys.find(k => k.key === 'd')?.pressed ? 'pressed' : ''}"
+              on:mousedown={e => handleMouseDown(e, 'd')}
+              on:mouseup={e => handleMouseUp(e, 'd')}
+              on:mouseleave={e => handleMouseLeave(e, 'd')}
+              on:touchstart={e => handleTouchStart(e, 'd')}
+              on:touchend={e => handleTouchEnd(e, 'd')}
+            >
               {keys.find(k => k.key === 'd')?.label}
             </div>
-            <div class="key {keys.find(k => k.key === 'ArrowRight')?.pressed ? 'pressed' : ''}">
+            <div
+              class="key {keys.find(k => k.key === 'ArrowRight')?.pressed ? 'pressed' : ''}"
+              on:mousedown={e => handleMouseDown(e, 'ArrowRight')}
+              on:mouseup={e => handleMouseUp(e, 'ArrowRight')}
+              on:mouseleave={e => handleMouseLeave(e, 'ArrowRight')}
+              on:touchstart={e => handleTouchStart(e, 'ArrowRight')}
+              on:touchend={e => handleTouchEnd(e, 'ArrowRight')}
+            >
               {keys.find(k => k.key === 'ArrowRight')?.label}
             </div>
           </div>
@@ -99,13 +202,27 @@
       <h3>Actions</h3>
       <div class="action-keys">
         <div class="action-key">
-          <div class="key large {keys.find(k => k.key === 'e')?.pressed ? 'pressed' : ''}">
+          <div
+            class="key large {keys.find(k => k.key === 'e')?.pressed ? 'pressed' : ''}"
+            on:mousedown={e => handleMouseDown(e, 'e')}
+            on:mouseup={e => handleMouseUp(e, 'e')}
+            on:mouseleave={e => handleMouseLeave(e, 'e')}
+            on:touchstart={e => handleTouchStart(e, 'e')}
+            on:touchend={e => handleTouchEnd(e, 'e')}
+          >
             {keys.find(k => k.key === 'e')?.label}
           </div>
           <span class="label">Attack</span>
         </div>
         <div class="action-key">
-          <div class="key large {keys.find(k => k.key === 'q')?.pressed ? 'pressed' : ''}">
+          <div
+            class="key large {keys.find(k => k.key === 'q')?.pressed ? 'pressed' : ''}"
+            on:mousedown={e => handleMouseDown(e, 'q')}
+            on:mouseup={e => handleMouseUp(e, 'q')}
+            on:mouseleave={e => handleMouseLeave(e, 'q')}
+            on:touchstart={e => handleTouchStart(e, 'q')}
+            on:touchend={e => handleTouchEnd(e, 'q')}
+          >
             {keys.find(k => k.key === 'q')?.label}
           </div>
           <span class="label">Block</span>
@@ -187,12 +304,24 @@
     font-weight: bold;
     transition: all 0.3s ease;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+    -webkit-tap-highlight-color: transparent;
   }
 
   .key.large {
     width: 48px;
     height: 48px;
     font-size: 18px;
+  }
+
+  .key:hover:not(.pressed) {
+    background: linear-gradient(145deg, #4a4a4a, #3a3a3a);
+    border-color: #666;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
   }
 
   .key.pressed {
