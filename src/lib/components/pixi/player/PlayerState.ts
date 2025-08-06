@@ -27,7 +27,7 @@ export class IdleState extends BaseState {
 
   onEnter(): void {
     this.setAnimation("Idle");
-    this.player.canMove = true;
+    this.player.movement.canMove = true;
   }
 
   onExit(): void {}
@@ -38,7 +38,7 @@ export class MoveState extends BaseState {
 
   onEnter(): void {
     this.setAnimation("Run");
-    this.player.canMove = true;
+    this.player.movement.canMove = true;
   }
 
   onExit(): void {}
@@ -76,7 +76,7 @@ export class AttackingState extends BaseState {
     this.setAnimation(attackType);
     this.player.animation.setLoop(false);
     this.animationComplete = false;
-    this.player.canMove = false;
+    this.player.movement.canMove = false;
   }
 
   onExit(): void {
@@ -93,7 +93,7 @@ export class BlockState extends BaseState {
 
   onEnter(): void {
     this.setAnimation("Guard");
-    this.player.canMove = false;
+    this.player.movement.canMove = false;
   }
 
   onExit(): void {}

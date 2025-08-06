@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount, onDestroy } from "svelte";
-  import type { InputManager } from "../pixi/InputManager";
+  import type { InputManager } from "../../pixi/InputManager";
 
   export let inputManager: InputManager;
 

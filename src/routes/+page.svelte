@@ -1,7 +1,8 @@
 <script lang="ts">
   import { onMount, onDestroy } from "svelte";
   import { GameManager } from "$lib/components/pixi/GameManager";
-  import InputDebugger from "$lib/components/ui/InputDebugger.svelte";
+  import InputDebugger from "$lib/components/svelte/debug/InputDebugger.svelte";
+  import CollisionDebugger from "$lib/components/svelte/debug/CollisionDebugger.svelte";
   import TitlePanel from "$lib/components/svelte/TitlePanel.svelte";
 
   let gameManager: GameManager;
@@ -31,6 +32,9 @@
   <div bind:this={gameContainer} class="game" />
   {#if inputManager}
     <InputDebugger {inputManager} />
+  {/if}
+  {#if gameManager}
+    <CollisionDebugger {gameManager} />
   {/if}
 </div>
 

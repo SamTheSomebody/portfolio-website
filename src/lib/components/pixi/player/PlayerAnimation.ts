@@ -1,26 +1,27 @@
-import { AnimatedSprite, Assets, Texture } from "pixi.js";
-import { App } from "../App";
+import { AnimatedSprite, Assets, Sprite, Texture } from 'pixi.js';
+import { App } from '../App';
+import type { Vector2 } from './PlayerMovement';
 
 export class PlayerAnimation {
   private sprite!: AnimatedSprite;
   private app: App;
   private animations: { [key: string]: Texture[] } = {};
-  private currentAnimation = "";
+  private currentAnimation = '';
 
   constructor(app: App) {
     this.app = app;
   }
 
   async init() {
-    const sheet = await Assets.load("/images/sprites/Warrior.json");
-    const animationTypes = ["Idle", "Run", "Attack1", "Attack2", "Guard"];
-    animationTypes.forEach((type) => {
+    const sheet = await Assets.load('/images/sprites/Warrior.json');
+    const animationTypes = ['Idle', 'Run', 'Attack1', 'Attack2', 'Guard'];
+    animationTypes.forEach(type => {
       this.animations[type] = Object.keys(sheet.data.frames)
-        .filter((key) => key.startsWith(`Warrior_${type}`))
-        .map((key) => sheet.textures[key]);
+        .filter(key => key.startsWith(`Warrior_${type}`))
+        .map(key => sheet.textures[key]);
     });
 
-    this.sprite = new AnimatedSprite(this.animations["Idle"]);
+    this.sprite = new AnimatedSprite(this.animations['Idle']);
     this.sprite.anchor.set(0.5);
     this.sprite.x = this.app.app.screen.width / 2;
     this.sprite.y = this.app.app.screen.height / 1.8;
@@ -30,11 +31,7 @@ export class PlayerAnimation {
   }
 
   public setAnimation(animationName: string) {
-    if (
-      this.animations[animationName] &&
-      this.sprite &&
-      this.currentAnimation !== animationName
-    ) {
+    if (this.animations[animationName] && this.sprite && this.currentAnimation !== animationName) {
       this.sprite.textures = this.animations[animationName];
       this.sprite.play();
       this.currentAnimation = animationName;
@@ -59,7 +56,7 @@ export class PlayerAnimation {
     return this.sprite ? this.sprite.textures.length : 0;
   }
 
-  public getPosition(): { x: number; y: number } {
+  public getPosition(): Vector2 {
     return { x: this.sprite.x, y: this.sprite.y };
   }
 

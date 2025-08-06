@@ -1,18 +1,17 @@
-import { App } from "../App";
-import { PlayerAnimation } from "./PlayerAnimation";
-import { PlayerStateMachine } from "./PlayerStateMachine";
+import { App } from '../App';
+import { PlayerAnimation } from './PlayerAnimation';
+import { PlayerStateMachine } from './PlayerStateMachine';
+import { PlayerMovement, type Vector2 } from './PlayerMovement';
 
 export class Player {
-  private app: App;
   animation: PlayerAnimation;
   stateMachine: PlayerStateMachine;
-  private movementDirection: { x: number; y: number } = { x: 0, y: 0 };
-  canMove: boolean = true;
+  movement: PlayerMovement;
 
   constructor(app: App) {
-    this.app = app;
     this.animation = new PlayerAnimation(app);
     this.stateMachine = new PlayerStateMachine(this);
+    this.movement = new PlayerMovement(app, this.animation);
   }
 
   async init() {
@@ -22,29 +21,11 @@ export class Player {
 
   public update(deltaTime: number) {
     this.stateMachine.update(deltaTime);
-    this.handleMovement(deltaTime);
-    this.handleScreenWrapping();
+    this.movement.update(deltaTime);
   }
 
-  private handleMovement(deltaTime: number) {
-    const sprite = this.animation.getSprite();
-    if (!sprite || !this.canMove) return;
-    const speed = 3 * deltaTime;
-    sprite.x += this.movementDirection.x * speed;
-    sprite.y += this.movementDirection.y * speed;
-  }
-
-  private handleScreenWrapping() {
-    const sprite = this.animation.getSprite();
-    if (!sprite) return;
-    if (sprite.x < -50) sprite.x = this.app.app.screen.width + 50;
-    if (sprite.x > this.app.app.screen.width + 50) sprite.x = -50;
-    if (sprite.y < -50) sprite.y = this.app.app.screen.height + 50;
-    if (sprite.y > this.app.app.screen.height + 50) sprite.y = -50;
-  }
-
-  public handleMovementInput(direction: { x: number; y: number }) {
-    this.movementDirection = direction;
+  public handleMovementInput(direction: Vector2) {
+    this.movement.setMovementDirection(direction);
     this.stateMachine.handleMovementInput(direction);
   }
 
@@ -60,12 +41,12 @@ export class Player {
     this.stateMachine.handleBlockEnd();
   }
 
-  public getPosition(): { x: number; y: number } {
-    return this.stateMachine.getPosition();
-  }
-
   public setPositionChangeCallback(callback: (x: number, y: number) => void) {
     this.stateMachine.setPositionChangeCallback(callback);
+  }
+
+  public setCollisionCallback(callback: (playerPos: Vector2, playerRadius: number) => boolean) {
+    this.movement.setCollisionCallback(callback);
   }
 
   public destroy() {
