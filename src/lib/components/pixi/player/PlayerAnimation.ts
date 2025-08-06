@@ -24,8 +24,7 @@ export class PlayerAnimation {
 
     this.sprite = new AnimatedSprite(this.animations['Idle']);
     this.sprite.anchor.set(0.5);
-    this.sprite.x = this.app.app.screen.width / 2;
-    this.sprite.y = this.app.app.screen.height / 1.8;
+    this.sprite.position.set(16, 16);
     this.sprite.animationSpeed = 0.1;
     this.sprite.play();
     this.app.addChild(this.sprite);

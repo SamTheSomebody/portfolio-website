@@ -4,7 +4,6 @@ import { App } from './App';
 import type { Vector2 } from './types/position';
 import type { Tile } from './types/tiles';
 import { CollisionManager } from './CollisionManager';
-import { getAssetPath } from '../../utils/assetPaths';
 
 export class Scene {
   private container: Container;
@@ -22,7 +21,7 @@ export class Scene {
   public async init() {
     const map = DEFAULT_MAP;
     this.map = map;
-    const sheet = await Assets.load(getAssetPath('/images/sprites/Terrain.json'));
+    const sheet = await Assets.load('/images/sprites/Terrain.json');
 
     for (let y = 0; y < map.length; y++) {
       for (let x = 0; x < map[y].length; x++) {
@@ -48,9 +47,8 @@ export class Scene {
         }
       }
     }
-
-    const x = this.app.app.screen.width / 2 - this.container.width / 1.5;
-    const y = this.app.app.screen.height / 1.8 - this.container.height / 1.5;
+    const x = -this.container.width / 2 - 32;
+    const y = -this.container.height / 2;
     this.container.position.set(x, y);
 
     this.collisionManager.setMap(this.map, this.container.x, this.container.y);

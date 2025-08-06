@@ -1,52 +1,75 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
+  let isVisible = true;
 
-  let visible = false;
-
-  onMount(() => {
-    setTimeout(() => {
-      visible = true;
-    }, 300);
-  });
+  function handleClose() {
+    isVisible = false;
+  }
 </script>
 
-<div class="construction-banner" class:visible>
-  <div class="construction-content">
-    <div class="construction-icon">🚧</div>
-    <div class="construction-text">
-      <h3>Site Under Construction</h3>
-      <p>Check back soon for updates!</p>
+{#if isVisible}
+  <div class="construction-banner">
+    <button class="close-button" on:click={handleClose} aria-label="Close"> × </button>
+    <div class="construction-content">
+      <div class="construction-icon">🚧</div>
+      <div class="construction-text">
+        <h3>SITE UNDER CONSTRUCTION</h3>
+        <p>Check back soon for updates!</p>
+      </div>
+      <div class="construction-icon">🚧</div>
     </div>
-    <div class="construction-icon">🚧</div>
   </div>
-</div>
+{/if}
 
 <style>
   .construction-banner {
     position: fixed;
     bottom: 20px;
-    right: 20px;
+    left: 50%;
+    transform: translate(-50%, 0);
     background: #e2665b;
-    border: 2px solid #fff;
+    border: 2px solid #eeddaa;
     border-radius: 12px;
-    padding: 16px 24px;
+    padding: 8px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
     z-index: 999;
-    opacity: 0;
-    transition: all 0.5s ease;
-    backdrop-filter: blur(10px);
   }
 
-  .construction-banner.visible {
-    opacity: 1;
+  .close-button {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    width: 24px;
+    height: 24px;
+    background: #e2665b;
+    border: 2px solid #eeddaa;
+    border-radius: 50%;
+    color: #eeddaa;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    z-index: 1000;
+  }
+
+  .close-button:hover {
+    background: #eeddaa;
+    color: #e2665b;
+    transform: scale(1.1);
+  }
+
+  .close-button:active {
+    transform: scale(0.95);
   }
 
   .construction-content {
     display: flex;
     align-items: center;
     gap: 16px;
-    color: white;
-    font-family: 'Courier New', monospace;
+    color: #eeddaa;
+    font-family: 'JetBrains Mono', monospace;
   }
 
   .construction-icon {
@@ -59,17 +82,12 @@
   }
 
   .construction-text h3 {
-    margin: 0 0 4px 0;
     font-size: 16px;
     font-weight: bold;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
   }
 
   .construction-text p {
-    margin: 0;
     font-size: 12px;
-    opacity: 0.9;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
   }
 
   @keyframes bounce {
@@ -85,32 +103,6 @@
     }
     60% {
       transform: translateY(-4px);
-    }
-  }
-
-  @media (max-width: 768px) {
-    .construction-banner {
-      top: 80px;
-      left: 20px;
-      right: 20px;
-      transform: none;
-      padding: 12px 16px;
-    }
-
-    .construction-content {
-      gap: 12px;
-    }
-
-    .construction-icon {
-      font-size: 20px;
-    }
-
-    .construction-text h3 {
-      font-size: 14px;
-    }
-
-    .construction-text p {
-      font-size: 11px;
     }
   }
 </style>

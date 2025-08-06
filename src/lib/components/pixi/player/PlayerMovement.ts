@@ -41,7 +41,7 @@ export class PlayerMovement {
     }
 
     sprite.position.set(newX, newY);
-    this.handleScreenWrapping();
+    // this.handleScreenWrapping();
   }
 
   private handleScreenWrapping() {
