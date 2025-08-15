@@ -29,27 +29,27 @@ export class Scene {
         if (!tile) {
           continue;
         }
-        const tileSprite = new Sprite(sheet.textures[tile.type + '.png']);
-        tileSprite.anchor.set(0.5);
-        tileSprite.x = x * 64;
-        tileSprite.y = y * 64;
-        tileSprite.width = 64;
-        tileSprite.height = 64;
-        this.container.addChild(tileSprite);
+        if (tile.type) {
+          const tileSprite = new Sprite(sheet.textures[tile.type + '.png']);
+          tileSprite.anchor.set(0.5);
+          tileSprite.x = (x - Math.floor(map.length / 2)) * 64 + 32;
+          tileSprite.y = (y - Math.floor(map.length / 2)) * 64 + 32;
+          tileSprite.width = 64;
+          tileSprite.height = 64;
+          this.container.addChild(tileSprite);
+        }
         if (tile.wall) {
           const wallSprite = new Sprite(sheet.textures[tile.wall + '.png']);
           wallSprite.anchor.set(0.5);
-          wallSprite.x = x * 64;
-          wallSprite.y = y * 64;
+          wallSprite.x = (x - Math.floor(map.length / 2)) * 64 + 32;
+          wallSprite.y = (y - Math.floor(map.length / 2)) * 64 + 32;
           wallSprite.width = 64;
           wallSprite.height = 64;
           this.container.addChild(wallSprite);
         }
       }
     }
-    const x = -this.container.width / 2 - 32;
-    const y = -this.container.height / 2;
-    this.container.position.set(x, y);
+    this.container.position.set(0, 0);
 
     this.collisionManager.setMap(this.map, this.container.x, this.container.y);
   }

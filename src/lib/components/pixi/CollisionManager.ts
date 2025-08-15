@@ -22,11 +22,11 @@ export class CollisionManager {
   }
 
   public checkCollision(playerPos: Vector2, playerRadius: number): boolean {
-    const adjustedX = playerPos.x - this.containerX + 32;
-    const adjustedY = playerPos.y - this.containerY + 64;
+    const adjustedX = playerPos.x - this.containerX;
+    const adjustedY = playerPos.y - this.containerY;
 
-    const tileX = Math.floor(adjustedX / 64);
-    const tileY = Math.floor(adjustedY / 64);
+    const tileX = Math.floor((adjustedX + Math.floor(this.map.length / 2) * 64 + 32) / 64);
+    const tileY = Math.floor((adjustedY + Math.floor(this.map.length / 2) * 64 + 32) / 64);
 
     if (tileY < 0 || tileY >= this.map.length || tileX < 0 || tileX >= this.map[0].length) {
       return true;

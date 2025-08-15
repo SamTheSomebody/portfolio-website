@@ -14,7 +14,8 @@ export type TileType =
   | 'left_no_edge'
   | 'right_no_edge'
   | 'top_no_edge'
-  | 'bottom_no_edge';
+  | 'bottom_no_edge'
+  | null;
 
 export type WallType =
   | 'left_shallow'

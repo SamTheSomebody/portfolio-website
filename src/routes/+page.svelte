@@ -1,73 +1,53 @@
 <script lang="ts">
-  import { onMount, onDestroy } from 'svelte';
-  import { GameManager } from '$lib/components/pixi/GameManager';
-  import InputDebugger from '$lib/components/svelte/debug/EventDebugger.svelte';
-  import TitlePanel from '$lib/components/svelte/TitlePanel.svelte';
-  import KeyboardInput from '$lib/components/svelte/keyVisualization/KeyboardInput.svelte';
-  import UnderConstruction from '$lib/components/svelte/UnderConstruction.svelte';
-  import { browser } from '$app/environment';
+  import Header from '$lib/components/svelte/home/Header.svelte';
+  import ProjectsOverlay from '$lib/components/svelte/projects/ProjectsOverlay.svelte';
+  import AboutOverlay from '$lib/components/svelte/home/AboutOverlay.svelte';
+  import WorkOverlay from '$lib/components/svelte/home/WorkOverlay.svelte';
+  import Home from '$lib/components/svelte/home/Home.svelte';
 
-  let gameManager: GameManager;
-  let inputManager: any;
-  let gameContainer: HTMLDivElement;
+  let selectedTab = 'home';
+  let showOverlay = false;
 
-  function handleKeyboardKeydown(event: CustomEvent) {
-    if (inputManager) {
-      inputManager.handleSyntheticKeyDown(event.detail.key);
+  function onTabSelect(tab: string) {
+    if (tab === 'home') {
+      selectedTab = 'home';
+      showOverlay = false;
+    } else {
+      selectedTab = tab;
+      showOverlay = true;
     }
   }
-
-  function handleKeyboardKeyup(event: CustomEvent) {
-    if (inputManager) {
-      inputManager.handleSyntheticKeyUp(event.detail.key);
-    }
-  }
-
-  onMount(() => {
-    if (gameContainer) {
-      gameManager = new GameManager(gameContainer);
-      inputManager = gameManager.inputManager;
-    }
-  });
-
-  onDestroy(() => {
-    if (gameManager) {
-      gameManager.destroy();
-    }
-  });
 </script>
 
-<svelte:head>
-  <title>Sam Muller</title>
-</svelte:head>
+<div class="layout">
+  <Header {selectedTab} {onTabSelect} />
+  <main class="main-content">
+    <Home />
+  </main>
 
-<div class="body">
-  <TitlePanel />
-  <UnderConstruction />
-  <div bind:this={gameContainer} class="game" />
-  {#if browser}
-    <KeyboardInput on:keydown={handleKeyboardKeydown} on:keyup={handleKeyboardKeyup} />
+  {#if showOverlay && selectedTab === 'projects'}
+    <ProjectsOverlay />
   {/if}
-  {#if inputManager}
-    <InputDebugger {inputManager} />
+
+  {#if showOverlay && selectedTab === 'about'}
+    <AboutOverlay />
+  {/if}
+
+  {#if showOverlay && selectedTab === 'work'}
+    <WorkOverlay />
   {/if}
 </div>
 
 <style>
-  .body {
-    position: relative;
+  .layout {
     width: 100vw;
     height: 100vh;
-    overflow: hidden;
+    display: flex;
+    flex-direction: column;
   }
 
-  .game {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
+  .main-content {
+    flex: 1;
     overflow: hidden;
-    z-index: 1;
   }
 </style>

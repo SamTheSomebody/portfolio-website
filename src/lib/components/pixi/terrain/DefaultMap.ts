@@ -1,4 +1,3 @@
-// Tile ID constants - using actual names from Terrain.json
 export const TILE_IDS = {
   CENTER: 'center',
   TOP_EDGE: 'top_edge',
@@ -35,21 +34,54 @@ import type { Tile } from '../types/tiles';
 
 // Default island map
 export const DEFAULT_MAP: (Tile | null)[][] = [
-  [null, null, null, null, null],
+  [null, null, null, null, null, null, null, null, null, null],
+  [null, null, null, null, null, null, null, null, null, null],
+  [null, null, null, null, null, null, null, null, null, null],
   [
+    null,
+    null,
     null,
     { type: 'top_left_corner', wall: null },
     { type: 'top_edge', wall: null },
     { type: 'top_right_corner', wall: null },
     null,
+    null,
+    null,
   ],
-  [null, { type: 'left_edge', wall: null }, { type: 'center', wall: null }, { type: 'right_edge', wall: null }, null],
   [
     null,
+    null,
+    { type: 'right_no_edge', wall: null },
+    { type: 'center', wall: null },
+    { type: 'center', wall: null },
+    { type: 'center', wall: null },
+    { type: 'left_no_edge', wall: null },
+    null,
+    null,
+  ],
+  [
+    null,
+    null,
+    { type: null, wall: 'left_tall' },
     { type: 'bottom_left_corner', wall: null },
     { type: 'bottom_edge', wall: null },
     { type: 'bottom_right_corner', wall: null },
+    { type: null, wall: 'right_tall' },
+    null,
     null,
   ],
-  [null, null, null, null, null],
+  [
+    null,
+    null,
+    null,
+    { type: null, wall: 'left_tall' },
+    { type: null, wall: 'edge_tall' },
+    { type: null, wall: 'right_tall' },
+    null,
+    null,
+    null,
+  ],
+  [null, null, null, null, null, null, null, null, null, null],
+  [null, null, null, null, null, null, null, null, null, null],
+  [null, null, null, null, null, null, null, null, null, null],
 ];
